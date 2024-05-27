@@ -1,15 +1,14 @@
-# Ignore everything
+# Ignore everything by default
 *
 
-# Except Python files
-!**/*.py
+# Allow directories to be searched
+!*/
 
-# Except MATLAB files
-!**/*.m
+# Allow specific file types
+!*.py
+!*.m
+!*.ipynb
 
-# Except Jupyter Notebook files
-!**/*.ipynb
-
-# Except the .gitignore file itself
+# Allow specific files
+!README.md
 !.gitignore
-
