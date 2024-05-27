@@ -1,0 +1,15 @@
+# Ignore everything
+*
+
+# Except Python files
+!**/*.py
+
+# Except MATLAB files
+!**/*.m
+
+# Except Jupyter Notebook files
+!**/*.ipynb
+
+# Except the .gitignore file itself
+!.gitignore
+
