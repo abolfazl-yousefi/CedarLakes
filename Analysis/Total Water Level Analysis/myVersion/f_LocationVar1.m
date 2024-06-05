@@ -4,9 +4,6 @@
 %%
 
 
-
-
-
 Names.TX_CedarLakes = 'TX - CedarLakes';
 Colors.TX_CedarLakes = [0.4940, 0.1840, 0.5560];
 MSLToNAVD88.TX_CedarLakes = [];

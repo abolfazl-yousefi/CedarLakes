@@ -2,6 +2,9 @@
 sz = 12; lwd = 1.5;
 
 figure
+for i = 1:numel(islandNames)
+    islandName = islandNames{i};
+    h(i) = 
 h = zeros(1,22);
 h(1) = errorbar(TA.VA,Hs.VA,HsSD.VA,HsSD.VA,'.','color',Colors.Gray,'MarkerSize',sz,'LineWidth',lwd,'DisplayName','VA');
 hold on

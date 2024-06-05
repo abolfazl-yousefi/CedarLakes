@@ -28,7 +28,13 @@ for i = 1:length(islandNames)
     Mu_Lb.(islandName) = abs(Mu.(islandName) - 2*SumM ./ chi2inv(0.975, 2*NumIA));
     Mu_Ub.(islandName) = abs(Mu.(islandName) - 2*SumM ./ chi2inv(0.025, 2*NumIA));
 
-    % Add more calculations as needed for BeachLb and BeachUb
+ % Lower bound for beach elevation
+    BeachLb.(islandName) = IA_Lb.(islandName) .* Mu.(islandName) ./ Lambda2.(islandName);
+    BeachLb.(islandName) = BeachLb.(islandName)(find(round(Threshold.(islandName) - Beach.(islandName), 1) == 0));
+    
+    % Upper bound for beach elevation
+    BeachUb.(islandName) = IA_Ub.(islandName) .* Mu.(islandName) ./ Lambda2.(islandName);
+    BeachUb.(islandName) = BeachUb.(islandName)(find(round(Threshold.(islandName) - Beach.(islandName), 1) == 0));
 end
 
 clear i islandName Lambda2_ NumIA SumM

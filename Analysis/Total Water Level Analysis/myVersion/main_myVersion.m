@@ -19,20 +19,22 @@ f_ExpParam_myVersion2;                 % updated!!
 % 6) Calculation of other variables of interest
 f_LocationVar2_myVersion;             % updated!!
 
+
 % PNAS Fig. 2
-f_Fig2;                     % NEEDS UPDATES!!
+f_Fig2_myVersion;
 
 % % Figure 3 of the paper
-f_Fig3;                     % updated!!
+f_Fig3_myVersion;                     % updated!!
+
 
 % Figure 4 of the paper 
-f_Fig4;                     % updated!!
+f_Fig4_myVersion;                     % updated!!
 
 % Beach Elevation vs Tidal Amplitude
-f_BeachElevTA;
+f_BeachElevTA_myVersion;
 
 % Figure 6 of the paper
-f_Fig6;
+f_Fig6_myVersion;
 
 % % Beach elevation vs Reference elevation
 % f_BeachPlot;      % --> need for estimation from DEM

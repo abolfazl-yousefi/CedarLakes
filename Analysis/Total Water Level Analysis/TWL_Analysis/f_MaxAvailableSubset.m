@@ -88,7 +88,6 @@ ConsVal = regionprops(logical(~isnan(TT2.Var2)), 'Area'); ConsVal = [ConsVal.Are
 ConsMiss = regionprops(logical(isnan(TT2.Var2)), 'Area'); ConsMiss = [ConsMiss.Area];
 
 % Maximum allowed gap of consecutive missing values
-MaxGap = 100;
 
 Idx = find(ConsMiss>MaxGap);
 

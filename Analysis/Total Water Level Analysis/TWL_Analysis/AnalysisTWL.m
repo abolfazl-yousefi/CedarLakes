@@ -1,44 +1,44 @@
 % clear all
 close all
 % clc
-
+MaxGap = 1000;
+Slope = 0.02;
 %%
-if ~exist('MeanSeaLevelData', 'var') || ~exist('WaveData', 'var')
 
-    csvFilePathWave = '../MSL_Wave_Data/WaveDataStation42020.csv';
+csvFilePathWave = '../MSL_Wave_Data/WaveDataStation42002.csv';
 
-    WaveData = readtable(csvFilePathWave, 'VariableNamingRule', 'preserve');
+WaveData = readtable(csvFilePathWave, 'VariableNamingRule', 'preserve');
 
-    columnNamesWave = {'Datetime', 'WVHT', 'DPD'};
-    WaveData = WaveData(:, columnNamesWave);
+columnNamesWave = {'Datetime', 'WVHT', 'DPD'};
+WaveData = WaveData(:, columnNamesWave);
 
-    newColumnNamesWave = {'DateTime', 'SignificantWaveHeight', 'PeakPeriod'};
-    WaveData.Properties.VariableNames = newColumnNamesWave;
+newColumnNamesWave = {'DateTime', 'SignificantWaveHeight', 'PeakPeriod'};
+WaveData.Properties.VariableNames = newColumnNamesWave;
 
-    if ~istimetable(WaveData)
-        WaveData = table2timetable(WaveData, 'RowTimes', 'DateTime');
-    end
-
-    csvFilePathWater = '../MSL_Wave_Data/WaterGageForFreePort.csv';
-
-    MeanSeaLevelData = readtable(csvFilePathWater, 'VariableNamingRule', 'preserve');
-
-    columnNamesWater = {'t', 'water_level'};
-    MeanSeaLevelData = MeanSeaLevelData(:, columnNamesWater);
-
-    newColumnNamesWater = {'DateTime', 'VerifiedTide'};
-    MeanSeaLevelData.Properties.VariableNames = newColumnNamesWater;
-
-    MeanSeaLevelData.PredictedTide = MeanSeaLevelData.VerifiedTide;
-
-    if ~istimetable(MeanSeaLevelData)
-        MeanSeaLevelData = table2timetable(MeanSeaLevelData, 'RowTimes', 'DateTime');
-    end
-
-
-    clear columnNamesWave columnNamesWater csvFilePathWave csvFilePathWater
-    clear newColumnNamesWater newColumnNamesWave csvFi
+if ~istimetable(WaveData)
+    WaveData = table2timetable(WaveData, 'RowTimes', 'DateTime');
 end
+
+csvFilePathWater = '../MSL_Wave_Data/WaterGageForFreePort.csv';
+
+MeanSeaLevelData = readtable(csvFilePathWater, 'VariableNamingRule', 'preserve');
+
+columnNamesWater = {'t', 'water_level'};
+MeanSeaLevelData = MeanSeaLevelData(:, columnNamesWater);
+
+newColumnNamesWater = {'DateTime', 'VerifiedTide'};
+MeanSeaLevelData.Properties.VariableNames = newColumnNamesWater;
+
+MeanSeaLevelData.PredictedTide = MeanSeaLevelData.VerifiedTide;
+
+if ~istimetable(MeanSeaLevelData)
+    MeanSeaLevelData = table2timetable(MeanSeaLevelData, 'RowTimes', 'DateTime');
+end
+
+
+clear columnNamesWave columnNamesWater csvFilePathWave csvFilePathWater
+clear newColumnNamesWater newColumnNamesWave csvFi
+
 
 %%
 
@@ -56,8 +56,7 @@ end
 % answer = inputdlg(prompt,dlgtitle,dims,definput);
 % Answer = str2double(answer);
 % MaxGap = Answer(1); Slope = Answer(2);
-MaxGap = 1000000;
-Slope = 0.02;
+
 clear prompt dlgtitle dims definput answer Answer
 
 % % If duplicates present (first check that data is sorted)
@@ -115,15 +114,18 @@ d = datetime(d, 'InputFormat', 'dd-MMM-yyyy');
 clear D
 Idx = zeros(1, length(TWL));
 
-for i = 1:length(TWL)
 
+for i = 1:length(TWL)
     IdxDate = find(datenum(d) == datenum(Date(i)));
     MaxWL = find(TWL_Hourly.TWL_Hourly(IdxDate) == TWL(i));
-    MaxWL = MaxWL(1);
-    Idx(i) = IdxDate(MaxWL);
-
+    if ~isempty(MaxWL)
+        MaxWL = MaxWL(1);
+        Idx(i) = IdxDate(MaxWL);
+    else
+        warning('No matching MaxWL found for Date index: %d', i);
+        Idx(i) = NaN;
+    end
     clear IdxDate MaxWL
-
 end
 
 clear i d
